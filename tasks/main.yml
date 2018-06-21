@@ -1,0 +1,46 @@
+- name: Ensure directory is available
+  file:
+    path: "{{ tiaas_dir }}"
+    state: directory
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0750
+
+- name: Ensure config directory is available
+  file:
+    path: "{{ tiaas_dir }}/config"
+    state: directory
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0750
+
+- name: Clone repository
+  become: true
+  become_user: "{{ tiaas_user }}"
+  git:
+    repo: "https://github.com/usegalaxy-eu/tiaas-group-join"
+    dest: "{{ tiaas_dir }}/code/"
+    version: "{{ tiaas_version }}"
+
+- name: Send templates
+  template:
+    src: "{{ item }}"
+    dest: "{{ tiaas_dir }}/config/{{ item }}"
+    owner: galaxy
+    group: galaxy
+    mode: 0640
+  with_items:
+    - config.yaml
+
+- name: Send runner script
+  template:
+    src: "run.sh"
+    dest: "{{ tiaas_dir }}/run.sh"
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0750
+
+- name: Install all of the necessary dependencies
+  pip:
+    virtualenv: "{{ tiaas_dir }}/venv/"
+    requirements: "{{ tiaas_dir }}/code/requirements.txt"
