@@ -33,7 +33,25 @@ None.
 Example Playbook
 ----------------
 
-TODO
+```
+---
+- name: UseGalaxy.eu
+  hosts: galaxy
+  become: true
+  become_user: root
+  vars:
+    tiaas_galaxy_db_url: postgres
+    tiaas_redirect_url: "https://usegalaxy.eu"
+    tiaas_galaxy_idsecret: "{{ galaxy_id_secret }}"
+    tiaas_trainings:
+      - test
+    tiaas_dir: /opt/tiaas
+    tiaas_user: root
+    tiaas_group: root
+    tiaas_version: master
+  roles:
+    - hxr.tiaas
+```
 
 License
 -------
