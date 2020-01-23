@@ -1,0 +1,15 @@
+[Unit]
+Description=Training Infrastructure as a Service
+Documentation=https://github.com/usegalaxy-eu/tiaas2
+After=network.target
+
+[Service]
+User={{ tiaas_user }}
+Group={{ tiaas_group }}
+ExecStart={{ tiaas_dir }}/run.sh
+Restart=on-failure
+RestartForceExitStatus=SIGPIPE
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

@@ -20,24 +20,16 @@
     group: "{{ tiaas_group }}"
     mode: 0750
 
-- name: Ensure config directory is available
-  file:
-    path: "{{ tiaas_dir }}/config"
-    state: directory
-    owner: "{{ tiaas_user }}"
-    group: "{{ tiaas_group }}"
-    mode: 0750
-
 - name: Clone repository
   become: true
   become_user: "{{ tiaas_user }}"
   git:
-    repo: "https://github.com/usegalaxy-eu/tiaas-group-join"
+    repo: "https://github.com/usegalaxy-eu/tiaas2"
     dest: "{{ tiaas_dir }}/code/"
     version: "{{ tiaas_version }}"
     force: "{{ tiaas_force_checkout }}"
+    register: __tiaas_git_update_result
   notify: 'reload tiaas'
-
 
 - name: Build TIaaS Configuration object
   set_fact:
@@ -76,16 +68,38 @@
     requirements: "{{ tiaas_dir }}/code/requirements.txt"
   notify: 'reload tiaas'
 
+- name: Send config
+  template:
+    src: "config.py"
+    dest: "{{ tiaas_dir }}/config/local_settings.py"
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0750
+  notify: 'reload tiaas'
+
 - name: Install systemd unit file
   template:
     src: tiaas.service
     dest: /etc/systemd/system/tiaas.service
   notify: setup tiaas systemd
 
-- name: Allow specified users to manage tiaas
-  template:
-    src: sudoers.j2
-    dest: /etc/sudoers.d/tiaas
-    validate: 'visudo -cf %s'
-    mode: 0440
-  when: tiaas_manage_user is defined
+# Run syncdb on the application
+- name: Update database
+  become: true
+  become_user: "{{ tiaas_user }}"
+  django_manage:
+    command: migrate
+    app_path: "{{ tiaas_dir }}/code/"
+    settings: "config.local_settings"
+    pythonpath: "{{ tiaas_dir }}"
+    virtualenv: "{{ virtualenv_dir }}"
+  when: __tiaas_git_update_result is changed
+
+# Create an initial superuser.
+- name: Create superuser if needed
+  become: true
+  become_user: "{{ tiaas_user }}"
+  django_manage:
+    command: "createsuperuser --noinput --username=admin --email=admin@example.com"
+    app_path: "{{ django_dir }}"
+  when: __tiaas_git_update_result is changed
