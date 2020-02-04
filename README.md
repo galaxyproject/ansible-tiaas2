@@ -53,6 +53,27 @@ Example Playbook
     - usegalaxy-eu.tiaas
 ```
 
+Your NGINX configuration needs to include something like, none of this is configurable, the role is extremely opinionated 🙃
+
+```
+    location /tiaas {
+        uwsgi_pass 127.0.0.1:5000;
+        uwsgi_param UWSGI_SCHEME $scheme;
+        include uwsgi_params;
+    }
+
+    location /tiaas/static {
+        alias /opt/tiaas/static;
+    }
+
+    location /join-training {
+        uwsgi_pass 127.0.0.1:5000;
+        uwsgi_param UWSGI_SCHEME $scheme;
+        include uwsgi_params;
+    }
+
+```
+
 License
 -------
 
