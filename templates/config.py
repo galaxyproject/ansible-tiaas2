@@ -1,4 +1,4 @@
-GALAXY_SECRET = "{{ id_secret }}"
+GALAXY_SECRET = "{{ tiaas_galaxy_idsecret }}"
 TIAAS_OWNER = '{{ tiaas_info.owner }}'
 TIAAS_EMAIL = '{{ tiaas_info.owner_email }}'
 TIAAS_OWNER_SITE = '{{ tiaas_info.owner_site }}'
@@ -9,7 +9,7 @@ DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': {{ tiaas_dir }}/config/db.sqlite3
+        'NAME': '{{ tiaas_dir }}/db.sqlite3',
     },
     'galaxy': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -20,5 +20,10 @@ DATABASES = {
         'PORT': '{{ tiaas_galaxy_db_port }}',
     }
 }
+
+ALLOWED_HOSTS = ['*']
+SECRET_KEY = '{{ tiaas_secret_key }}'
+STATIC_ROOT = '{{ tiaas_dir }}/static'
+
 
 {{ tiaas_other_config }}
