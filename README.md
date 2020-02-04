@@ -7,18 +7,6 @@ Requirements
 
 RHEL / Centos7 / Centos6 / Debian & Ubuntu I guess
 
-Role Variables
---------------
-
-```
-tiaas_galaxy_db_url: postgres
-tiaas_galaxy_idsecret: ""
-
-tiaas_dir: /opt/tiaas
-tiaas_user: tiaas
-tiaas_group: tiaas
-tiaas_version: master
-```
 
 Dependencies
 ------------
@@ -35,13 +23,33 @@ Example Playbook
   become: true
   become_user: root
   vars:
-    tiaas_galaxy_db_url: postgres
-    tiaas_galaxy_idsecret: "{{ galaxy_id_secret }}"
+    postgresql_objects_privileges:
+    # Allow read-only access users, sessions, and jobs
+    - database: galaxy
+      roles: tiaas
+      objs: galaxy_user,galaxy_session,job
+      type: table
+      privs: SELECT
+    # Permit creating new groups, roles, and associating users to both
+    - database: galaxy
+      roles: tiaas
+      objs: user_group_association,galaxy_group,role,group_role_association
+      type: table
+      privs: SELECT,INSERT
+    # Permit updating the sequences, required to insert into the above tables.
+    - database: galaxy
+      roles: tiaas
+      objs: role_id_seq,galaxy_group_id_seq,group_role_association_id_seq,user_group_association_id_seq
+      type: sequence
+      privs: USAGE,SELECT
+
+    # TIaaS setup
     tiaas_dir: /opt/tiaas
-    tiaas_user: root
-    tiaas_group: root
+    tiaas_user: tiaas
+    tiaas_group: tiaas
     tiaas_version: master
   roles:
+    - natefoo.postgresql_objects
     - usegalaxy-eu.tiaas
 ```
 
