@@ -63,7 +63,7 @@ Your NGINX configuration needs to include something like, none of this is config
     }
 
     location /tiaas/static {
-        alias /opt/tiaas/static;
+        alias {{ tiaas_dir }}/static;
     }
 
     location /join-training {
