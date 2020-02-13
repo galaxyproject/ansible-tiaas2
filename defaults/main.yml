@@ -30,3 +30,4 @@ tiaas_secret_key: "Using the default is bad news bears"
 
 tiaas_admin_user: admin
 tiaas_admin_pass: admin
+tiaas_tiaas_use_sqlite: true
