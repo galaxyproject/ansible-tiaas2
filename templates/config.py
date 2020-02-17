@@ -20,7 +20,7 @@ DATABASES = {
         'PASSWORD': '{{ tiaas_tiaas_db_pass }}',
         'HOST': '{{ tiaas_tiaas_db_host }}',
         'PORT': '{{ tiaas_tiaas_db_port }}',
-    }
+    },
     {% endif %}
     'galaxy': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
