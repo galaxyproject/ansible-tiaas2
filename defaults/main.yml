@@ -2,6 +2,9 @@
 tiaas_galaxy_db_url: postgres
 tiaas_galaxy_idsecret: '{{ galaxy_config.galaxy.id_secret | default("USING THE DEFAULT IS NOT SECURE!") }}'
 
+# TIaaS GDPR
+retain_extra_time: 12
+
 # TIaaS Deployment
 tiaas_dir: /opt/tiaas
 tiaas_user: tiaas
