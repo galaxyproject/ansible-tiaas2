@@ -122,4 +122,3 @@
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}/"
-  when: __tiaas_git_update_result is changed
