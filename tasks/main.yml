@@ -68,7 +68,7 @@
     dest: "{{ tiaas_dir }}/config/local_settings.py"
     owner: "{{ tiaas_user }}"
     group: "{{ tiaas_group }}"
-    mode: 0750
+    mode: 0640
   notify: 'reload tiaas'
 
 - name: Install systemd unit file
