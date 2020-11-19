@@ -14,9 +14,9 @@ tiaas_venv_dir: "{{ tiaas_dir }}/venv"
 tiaas_user: tiaas
 tiaas_group: tiaas
 tiaas_version: master
+tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
 # DB aaccess
-
 tiaas_galaxy_db_name: "galaxy"
 tiaas_galaxy_db_user: ""
 tiaas_galaxy_db_pass: ""

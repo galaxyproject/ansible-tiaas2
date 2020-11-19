@@ -48,7 +48,7 @@ Example Playbook
     tiaas_user: tiaas
     tiaas_group: tiaas
     tiaas_version: master
-    tiaas_galaxy_stylesheet: "/[path-to-galaxy-root]/static/style/base.css"
+    tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
   roles:
     - natefoo.postgresql_objects
     - usegalaxy-eu.tiaas
