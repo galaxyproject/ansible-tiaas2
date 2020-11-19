@@ -48,6 +48,7 @@
     extra_args: "--index-url https://wheels.galaxyproject.org/simple/ --extra-index-url https://pypi.python.org/simple {{ pip_extra_args | default('') }}"
     virtualenv: "{{ tiaas_dir }}/venv/"
     virtualenv_command: "{{ tiaas_virtualenv_command | default(galaxy_virtualenv_command | default(pip_virtualenv_command | default(omit))) }}"
+    virtualenv_python: "{{ tiaas_virtualenv_python | default('python3') }}"
   environment:
     PYTHONPATH: null
     VIRTUAL_ENV: "{{ tiaas_dir }}/venv/"
