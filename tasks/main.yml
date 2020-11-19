@@ -25,7 +25,7 @@
   become_user: "{{ tiaas_user }}"
   git:
     repo: "https://github.com/usegalaxy-eu/tiaas2"
-    dest: "{{ tiaas_dir }}/code/"
+    dest: "{{ tiaas_code_dir }}/"
     version: "{{ tiaas_version }}"
     force: "{{ tiaas_force_checkout }}"
   register: __tiaas_git_update_result
@@ -44,19 +44,19 @@
   become: true
   become_user: "{{ tiaas_user }}"
   pip:
-    requirements: "{{ tiaas_dir }}/code/requirements.txt"
+    requirements: "{{ tiaas_code_dir }}/requirements.txt"
     extra_args: "--index-url https://wheels.galaxyproject.org/simple/ --extra-index-url https://pypi.python.org/simple {{ pip_extra_args | default('') }}"
-    virtualenv: "{{ tiaas_dir }}/venv/"
+    virtualenv: "{{ tiaas_venv_dir }}/"
     virtualenv_command: "{{ tiaas_virtualenv_command | default(galaxy_virtualenv_command | default(pip_virtualenv_command | default(omit))) }}"
     virtualenv_python: "{{ tiaas_virtualenv_python | default('python3') }}"
   environment:
     PYTHONPATH: null
-    VIRTUAL_ENV: "{{ tiaas_dir }}/venv/"
+    VIRTUAL_ENV: "{{ tiaas_venv_dir }}/"
   notify: 'reload tiaas'
 
 - name: Ensure config directory is available
   file:
-    path: "{{ tiaas_dir }}/config/"
+    path: "{{ tiaas_config_dir }}/"
     state: directory
     owner: "{{ tiaas_user }}"
     group: "{{ tiaas_group }}"
@@ -65,7 +65,7 @@
 - name: Send config
   template:
     src: "config.py"
-    dest: "{{ tiaas_dir }}/config/local_settings.py"
+    dest: "{{ tiaas_config_dir }}/local_settings.py"
     owner: "{{ tiaas_user }}"
     group: "{{ tiaas_group }}"
     mode: 0640
@@ -74,7 +74,7 @@
 - name: Create symlink to Galaxy's stylesheet
   file:
     src: "{{ tiaas_galaxy_stylesheet }}"
-    path: "{{ tiaas_dir }}/code/training/static/training/style/galaxy.css"
+    path: "{{ tiaas_code_dir }}/training/static/training/style/galaxy.css"
     state: link
     force: yes
 
@@ -90,9 +90,9 @@
   become_user: "{{ tiaas_user }}"
   django_manage:
     command: migrate
-    app_path: "{{ tiaas_dir }}/code/"
+    app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_dir }}/venv/"
+    virtualenv: "{{ tiaas_venv_dir }}/"
   when: __tiaas_git_update_result is changed
 
 # Create an initial superuser.
@@ -102,14 +102,14 @@
   django_manage:
     command: |
         shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
-    app_path: "{{ tiaas_dir }}/code/"
+    app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_dir }}/venv/"
+    virtualenv: "{{ tiaas_venv_dir }}/"
   ignore_errors: yes
 
 - name: Ensure static directory is available
   file:
-    path: "{{ tiaas_dir }}/static/"
+    path: "{{ tiaas_static_dir }}/"
     state: directory
     owner: "{{ tiaas_user }}"
     group: "{{ tiaas_group }}"
@@ -120,7 +120,7 @@
   become_user: "{{ tiaas_user }}"
   django_manage:
     command: collectstatic
-    app_path: "{{ tiaas_dir }}/code/"
+    app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_dir }}/venv/"
+    virtualenv: "{{ tiaas_venv_dir }}/"
   when: __tiaas_git_update_result is changed
