@@ -71,11 +71,10 @@
     mode: 0640
   notify: 'reload tiaas'
 
-- name: Create symlink to Galaxy's stylesheet
-  file:
+- name: Copy Galaxy's stylesheet
+  copy:
     src: "{{ tiaas_galaxy_stylesheet }}"
-    path: "{{ tiaas_code_dir }}/training/static/training/style/galaxy.css"
-    state: link
+    dest: "{{ tiaas_code_dir }}/training/static/training/style/galaxy.css"
     force: yes
 
 - name: Install systemd unit file
