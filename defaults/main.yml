@@ -7,12 +7,16 @@ retain_extra_time: 12
 
 # TIaaS Deployment
 tiaas_dir: /opt/tiaas
+tiaas_code_dir: "{{ tiaas_dir }}/code"
+tiaas_config_dir: "{{ tiaas_dir }}/config"
+tiaas_static_dir: "{{ tiaas_dir }}/static"
+tiaas_venv_dir: "{{ tiaas_dir }}/venv"
 tiaas_user: tiaas
 tiaas_group: tiaas
 tiaas_version: master
+tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
 # DB aaccess
-
 tiaas_galaxy_db_name: "galaxy"
 tiaas_galaxy_db_user: ""
 tiaas_galaxy_db_pass: ""

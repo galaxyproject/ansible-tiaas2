@@ -39,7 +39,7 @@ DATABASES = {
 
 ALLOWED_HOSTS = ['*']
 SECRET_KEY = '{{ tiaas_secret_key }}'
-STATIC_ROOT = '{{ tiaas_dir }}/static'
+STATIC_ROOT = '{{ tiaas_static_dir }}'
 
 
 {{ tiaas_other_config }}
