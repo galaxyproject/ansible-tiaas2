@@ -1,4 +1,4 @@
-# Ansible for TIaaS
+# Ansible for TIaaS [![Gitter](https://badges.gitter.im/galaxyproject/training-material.svg)](https://gitter.im/galaxyproject/tiaas?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Install and configure [TIaaS](https://github.com/usegalaxy-eu/tiaas2).
 
