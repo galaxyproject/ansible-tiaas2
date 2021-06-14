@@ -83,19 +83,21 @@
   copy:
     src: "{{ tiaas_galaxy_stylesheet }}"
     dest: "{{ tiaas_code_dir }}/training/static/training/style/galaxy.css"
+    mode: 0644
     remote_src: true
 
 - name: Install systemd unit file
   template:
     src: tiaas.service
     dest: /etc/systemd/system/tiaas.service
+    mode: 0644
   notify: setup tiaas systemd
 
 # Run syncdb on the application
 - name: Update database
   become: true
   become_user: "{{ tiaas_user }}"
-  django_manage:
+  django_manage:  # noqa no-handler
     command: migrate
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
@@ -107,12 +109,14 @@
   become: true
   become_user: "{{ tiaas_user }}"
   django_manage:
-    command: |
-        shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
+    command: >-
+        shell -c
+        "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
-  ignore_errors: yes
+  # TODO: this could probably be failed_when
+  ignore_errors: true  # noqa ignore-errors
 
 - name: Ensure static directory is available
   file:

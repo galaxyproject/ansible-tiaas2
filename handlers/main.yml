@@ -9,4 +9,4 @@
     state: started
     enabled: true
     name: tiaas
-    daemon_reload: yes
+    daemon_reload: true
