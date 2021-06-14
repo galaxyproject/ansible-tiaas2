@@ -24,7 +24,7 @@
   become: true
   become_user: "{{ tiaas_user }}"
   git:
-    repo: "https://github.com/usegalaxy-eu/tiaas2"
+    repo: "{{ tiaas_repo }}"
     dest: "{{ tiaas_code_dir }}/"
     version: "{{ tiaas_version }}"
     force: "{{ tiaas_force_checkout }}"
@@ -46,12 +46,12 @@
   pip:
     requirements: "{{ tiaas_code_dir }}/requirements.txt"
     extra_args: "--index-url https://wheels.galaxyproject.org/simple/ --extra-index-url https://pypi.python.org/simple {{ pip_extra_args | default('') }}"
-    virtualenv: "{{ tiaas_venv_dir }}/"
+    virtualenv: "{{ tiaas_venv_dir }}"
     virtualenv_command: "{{ tiaas_virtualenv_command | default(galaxy_virtualenv_command | default(pip_virtualenv_command | default(omit))) }}"
     virtualenv_python: "{{ tiaas_virtualenv_python | default('python3') }}"
   environment:
     PYTHONPATH: null
-    VIRTUAL_ENV: "{{ tiaas_venv_dir }}/"
+    VIRTUAL_ENV: "{{ tiaas_venv_dir }}"
   notify: 'reload tiaas'
 
 - name: Ensure config directory is available
@@ -71,11 +71,19 @@
     mode: 0640
   notify: 'reload tiaas'
 
+- name: Create style directory
+  file:
+    path: "{{ tiaas_code_dir }}/training/static/training/style"
+    state: directory
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0755
+
 - name: Copy Galaxy's stylesheet
   copy:
     src: "{{ tiaas_galaxy_stylesheet }}"
     dest: "{{ tiaas_code_dir }}/training/static/training/style/galaxy.css"
-    force: yes
+    remote_src: true
 
 - name: Install systemd unit file
   template:
@@ -91,7 +99,7 @@
     command: migrate
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_venv_dir }}/"
+    virtualenv: "{{ tiaas_venv_dir }}"
   when: __tiaas_git_update_result is changed
 
 # Create an initial superuser.
@@ -103,7 +111,7 @@
         shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_venv_dir }}/"
+    virtualenv: "{{ tiaas_venv_dir }}"
   ignore_errors: yes
 
 - name: Ensure static directory is available
@@ -121,4 +129,4 @@
     command: collectstatic
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
-    virtualenv: "{{ tiaas_venv_dir }}/"
+    virtualenv: "{{ tiaas_venv_dir }}"

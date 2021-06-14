@@ -9,7 +9,7 @@ TIAAS_SEND_EMAIL_FROM = "tiaas+noreply@example.org"
 
 TIAAS_GDPR_RETAIN_EXTRA = {{ retain_extra_time }}  # months (int)
 
-DEBUG = False
+DEBUG = {{ tiaas_debug | default('False') }}
 
 DATABASES = {
     {% if tiaas_tiaas_use_sqlite %}
