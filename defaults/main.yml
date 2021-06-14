@@ -13,15 +13,24 @@ tiaas_static_dir: "{{ tiaas_dir }}/static"
 tiaas_venv_dir: "{{ tiaas_dir }}/venv"
 tiaas_user: tiaas
 tiaas_group: tiaas
+tiaas_repo: "https://github.com/usegalaxy-eu/tiaas2"
 tiaas_version: master
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
-# DB aaccess
+# Galaxy DB access
 tiaas_galaxy_db_name: "galaxy"
 tiaas_galaxy_db_user: ""
 tiaas_galaxy_db_pass: ""
 tiaas_galaxy_db_host: "/var/run/postgresql/"
 tiaas_galaxy_db_port: ""
+
+# TIaaS DB access (default is SQLite in {{ tiaas_dir }}/db.sqlite3)
+tiaas_tiaas_use_sqlite: true  # disable and set options below as needed for PostgreSQL
+tiaas_tiaas_db_name: "tiaas"
+tiaas_tiaas_db_user: ""
+tiaas_tiaas_db_pass: ""
+tiaas_tiaas_db_host: "/var/run/postgresql/"
+tiaas_tiaas_db_port: ""
 
 tiaas_other_config: ""
 tiaas_info:
@@ -37,4 +46,3 @@ tiaas_secret_key: "Using the default is bad news bears"
 
 tiaas_admin_user: admin
 tiaas_admin_pass: admin
-tiaas_tiaas_use_sqlite: true
