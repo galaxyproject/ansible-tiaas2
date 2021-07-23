@@ -102,7 +102,7 @@
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
-  run_once: "not {{ tiaas_tiaas_use_sqlite }}"
+  run_once: "{{ not tiaas_tiaas_use_sqlite }}"
   when: __tiaas_git_update_result is changed
 
 # Create an initial superuser.
@@ -116,7 +116,7 @@
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
-  run_once: "not {{ tiaas_tiaas_use_sqlite }}"
+  run_once: "{{ not tiaas_tiaas_use_sqlite }}"
   # TODO: this could probably be failed_when
   ignore_errors: true  # noqa ignore-errors
 
