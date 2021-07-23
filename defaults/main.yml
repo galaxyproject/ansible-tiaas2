@@ -17,6 +17,11 @@ tiaas_repo: "https://github.com/usegalaxy-eu/tiaas2"
 tiaas_version: master
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
+# Create a cron job to disassociate training roles from groups after trainings have expired, set to `false` to disable
+tiaas_disassociate_training_roles:
+  hour: 0      # optional, defaults to 0
+  minute: 0    # optional, defaults to 0
+
 # Galaxy DB access
 tiaas_galaxy_db_name: "galaxy"
 tiaas_galaxy_db_user: ""

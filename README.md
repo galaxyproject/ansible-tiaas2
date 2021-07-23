@@ -36,7 +36,13 @@ Example Playbook
       objs: user_group_association,galaxy_group,role,group_role_association
       type: table
       privs: SELECT,INSERT
-    # Permit updating the sequences, required to insert into the above tables.
+    # Permit disassociating training roles from groups after trainings end
+    - database: galaxy
+      roles: tiaas
+      objs: group_role_association
+      type: table
+      privs: DELETE
+    # Permit updating the sequences, required to insert into the above tables
     - database: galaxy
       roles: tiaas
       objs: role_id_seq,galaxy_group_id_seq,group_role_association_id_seq,user_group_association_id_seq
