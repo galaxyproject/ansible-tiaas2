@@ -53,7 +53,7 @@ Example Playbook
     tiaas_dir: /opt/tiaas
     tiaas_user: tiaas
     tiaas_group: tiaas
-    tiaas_version: master
+    tiaas_version: main
     tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
   roles:
     - natefoo.postgresql_objects
