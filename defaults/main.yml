@@ -51,3 +51,5 @@ tiaas_secret_key: "Using the default is bad news bears"
 
 tiaas_admin_user: admin
 tiaas_admin_pass: admin
+
+tiaas_show_advertising: true
