@@ -7,7 +7,7 @@ TIAAS_DOMAIN = '{{ tiaas_info.domain }}'
 TIAAS_SEND_EMAIL_TO = '{{ tiaas_info.owner_email }}'
 TIAAS_SEND_EMAIL_FROM = "tiaas+noreply@example.org"
 
-TIAAS_SHOW_ADVERTISING = {{ tiaas_show_advertising }}
+TIAAS_SHOW_ADVERTISING = {{ tiaas_show_advertising | ternary('True', 'False') }}
 
 TIAAS_GDPR_RETAIN_EXTRA = {{ retain_extra_time }}  # months (int)
 
