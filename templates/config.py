@@ -8,8 +8,8 @@ TIAAS_SEND_EMAIL_TO = '{{ tiaas_info.owner_email }}'
 TIAAS_SEND_EMAIL_FROM = "tiaas+noreply@example.org"
 
 TIAAS_SHOW_ADVERTISING = {{ tiaas_show_advertising | ternary('True', 'False') }}
-
-TIAAS_GDPR_RETAIN_EXTRA = {{ retain_extra_time }}  # months (int)
+TIAAS_GDPR_RETAIN_EXTRA_MONTHS = {{ tiaas_retain_extra_months }}
+TIAAS_RETAIN_CONTACT_REQUIRE_CONSENT = {{ tiaas_retain_contact_require_consent | ternary('True', 'False') }}
 
 DEBUG = {{ tiaas_debug | default('False') }}
 
@@ -39,9 +39,10 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '{{ inventory_hostname }}']
 SECRET_KEY = '{{ tiaas_secret_key }}'
 STATIC_ROOT = '{{ tiaas_static_dir }}'
 
+TIAAS_LOG_FILE = '{{ tiaas_log_path }}'
 
 {{ tiaas_other_config }}
