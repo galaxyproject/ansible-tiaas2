@@ -17,6 +17,8 @@ Using the Galaxy playbook
 
 ## Migrating to the new TIaaS
 
+**(August 2022)**
+
 The new TIaaS allows you to customise the site's text content with simple HTML templates. To see what can be customized, check out `./templates/snippets`. The updated Ansible role allows you to override these templates with your own custom content.
 
 1. Grab the **updated** Ansible role from `usegalauy_eu.tiaas2`
