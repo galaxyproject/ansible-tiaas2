@@ -63,7 +63,7 @@ The new TIaaS allows you to customise the site's text content with simple HTML t
   - `tiaas_log_path`: path to tiaas log file (default `{{ tiaas_dir }}/tiaas.log`)
 
 5. One variable has been renamed for clarity:
-  - `retain_extra_time` -> `tiaas_retain_extra_months`
+  - `retain_extra_time` -> `tiaas_retain_contact_extra_months`
 
 ---
 
