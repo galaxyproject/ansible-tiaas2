@@ -23,11 +23,16 @@ The new TIaaS allows you to customise the site's text content with simple HTML t
 
 1. Grab the **updated** Ansible role from `usegalauy_eu.tiaas2`
 2. [Optional] Set the Ansible var `tiaas_templates_dir` to point to the `files` directory
-  containing your TIaaS templates. This directory should have the following
-  structure (obtain samples from `./templates/snippets`):
+  containing your TIaaS templates. This directory **must** have the following
+  structure. Copy this directory from `./templates/snippets` and edit them to
+  customize your deployment:
+  ```yaml
+  # vars.yml
+  tiaas_templates_dir: tiaas/html
+  ```
 
   ```
-  files/tiaas/html/
+  .files/tiaas/html/
   ├── about
   │   ├── 1_intro.html
   │   ├── 2_why_tiaas_funding.txt
@@ -45,10 +50,10 @@ The new TIaaS allows you to customise the site's text content with simple HTML t
       └── 6_thanks.html
   ```
 
-3. [Optional] If the above templates reference any static files you can add these files
-  by setting the Ansible var `tiaas_extra_static_dir`. This should point to a
-  directory containing your static files. For example, the image in the default
-  `footer.html` references a static file located at
+3. [Optional] If the above templates reference any static files you can add
+these files by setting the Ansible var `tiaas_extra_static_dir`. This should
+point to a directory containing your static files. For example, the image in the
+default `footer.html` references a static file located at
   `{{ tiaas_extra_static_dir }}/footer/galaxyproject.png`:
 
   ```html
