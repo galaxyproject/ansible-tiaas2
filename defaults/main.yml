@@ -53,3 +53,6 @@ tiaas_admin_user: admin
 tiaas_admin_pass: admin
 
 tiaas_show_advertising: true
+
+tiaas_statsd_host: null
+tiaas_statsd_prefix: tiaas
