@@ -41,6 +41,10 @@ tiaas_tiaas_db_pass: ""
 tiaas_tiaas_db_host: "/var/run/postgresql/"
 tiaas_tiaas_db_port: ""
 
+tiaas_show_username: false
+tiaas_send_email_to_requester: false
+tiaas_late_request_prevention_days: 10
+
 tiaas_other_config: ""
 tiaas_info:
   owner: default
