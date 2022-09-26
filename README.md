@@ -21,7 +21,7 @@ Using the Galaxy playbook
 
 The new TIaaS allows you to customise the site's text content with simple HTML templates. To see what can be customized, check out `./templates/snippets`. The updated Ansible role allows you to override these templates with your own custom content.
 
-1. Grab the **updated** Ansible role from `usegalauy_eu.tiaas2`
+1. Grab the **updated** Ansible role from `galaxyproject.tiaas2`
 2. [Optional] Set the Ansible var `tiaas_templates_dir` to point to the `files` directory
   containing your TIaaS templates. This directory **must** have the following
   structure. Copy this directory from `./templates/snippets` and edit them to

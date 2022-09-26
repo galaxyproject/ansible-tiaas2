@@ -6,7 +6,7 @@ tiaas_show_advertising: true
 # Ask for consent to retain contact info for extra time
 tiaas_retain_contact_require_consent: true
 # Additional months to retain contact info
-tiaas_retain_contact_extra_months: 12
+tiaas_retain_contact_extra_months: "{{ retain_extra_time | default(12) }}"
 
 # TIaaS Deployment
 tiaas_dir: /opt/tiaas

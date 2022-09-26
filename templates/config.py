@@ -11,8 +11,8 @@ TIAAS_SHOW_ADVERTISING = {{ tiaas_show_advertising | ternary('True', 'False') }}
 TIAAS_GDPR_RETAIN_EXTRA_MONTHS = {{ tiaas_retain_contact_extra_months }}
 TIAAS_RETAIN_CONTACT_REQUIRE_CONSENT = {{ tiaas_retain_contact_require_consent | ternary('True', 'False') }}
 
-TIAAS_EXPOSE_USERNAME = {{ tiaas_show_username }}
-TIAAS_SEND_EMAIL_TO_REQUESTER = {{ tiaas_send_email_to_requester }}
+TIAAS_EXPOSE_USERNAME = {{ tiaas_show_username | ternary('True', 'False') }}
+TIAAS_SEND_EMAIL_TO_REQUESTER = {{ tiaas_send_email_to_requester | ternary('True', 'False') }}
 TIAAS_LATE_REQUEST_PREVENTION_DAYS = {{ tiaas_late_request_prevention_days }}
 
 DEBUG = {{ tiaas_debug | default('False') }}
