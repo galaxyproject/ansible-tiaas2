@@ -14,11 +14,10 @@ tiaas_code_dir: "{{ tiaas_dir }}/code"
 tiaas_config_dir: "{{ tiaas_dir }}/config"
 tiaas_static_dir: "{{ tiaas_dir }}/static"
 tiaas_venv_dir: "{{ tiaas_dir }}/venv"
-tiaas_log_path: "{{ tiaas_dir }}/tiaas.log"
 tiaas_user: tiaas
 tiaas_group: tiaas
 tiaas_repo: "https://github.com/galaxyproject/tiaas2"
-tiaas_version: master
+tiaas_version: main
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
 # Create a cron job to disassociate training roles from groups after trainings have expired, set to `false` to disable

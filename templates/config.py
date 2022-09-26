@@ -47,6 +47,4 @@ ALLOWED_HOSTS = ['localhost', '{{ tiaas_info.domain }}']
 SECRET_KEY = '{{ tiaas_secret_key }}'
 STATIC_ROOT = '{{ tiaas_static_dir }}'
 
-TIAAS_LOG_FILE = '{{ tiaas_log_path }}'
-
 {{ tiaas_other_config }}
