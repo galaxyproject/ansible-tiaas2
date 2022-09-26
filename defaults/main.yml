@@ -62,8 +62,11 @@ tiaas_admin_pass: admin
 # Add these lines to playbook vars to override default tiaas files with
 # playbook files:
 
-# tiaas_templates_dir: files/tiaas/html  # < copy templates from <playbook>/files/html
-# tiaas_extra_static_dir: files/tiaas/static  # < put static files required by above templates in here
+# Template TIAAS HTML snippet files across:
+# tiaas_templates_dir: templates/tiaas/html
+
+# Put static files required by above templates in here:
+# tiaas_extra_static_dir: files/tiaas/static
 
 tiaas_html_templates:
   - src: "footer.html"
