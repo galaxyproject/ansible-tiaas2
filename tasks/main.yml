@@ -112,11 +112,12 @@
   django_manage:
     command: >-
         shell -c
-        "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}') if User.objects.filter(username='{{ tiaas_admin_user }}').count() == 0 else None"
+        "from django.contrib.auth.models import User; User.objects.filter(username='{{ tiaas_admin_user }}').count() or User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
   run_once: "{{ not tiaas_tiaas_use_sqlite }}"
+  ignore_errors: true
 
 - name: Ensure static directory is available
   file:
