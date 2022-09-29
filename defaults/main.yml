@@ -62,8 +62,10 @@ tiaas_admin_pass: admin
 # Add these lines to playbook vars to override default tiaas files with
 # playbook files:
 
-# Template TIAAS HTML snippet files across:
-# tiaas_templates_dir: templates/tiaas/html
+# Copy TIAAS HTML template snippets across:
+# N.B. Don't use these as ansible templates, Django template tags will be
+#   interpreted as Jinja tags and cause errors!
+# tiaas_templates_dir: files/tiaas/html
 
 # Put static files required by above templates in here:
 # tiaas_extra_static_dir: files/tiaas/static

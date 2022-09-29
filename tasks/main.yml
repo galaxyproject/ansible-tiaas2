@@ -139,7 +139,7 @@
 - name: Copy custom HTML templates
   become: true
   become_user: "{{ tiaas_user }}"
-  template:
+  copy:
     src: "{{ tiaas_templates_dir }}/{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: 0644
