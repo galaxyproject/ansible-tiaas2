@@ -112,7 +112,7 @@
   django_manage:
     command: >-
         shell -c
-        "from django.contrib.auth.models import User; User.objects.filter(username='{{ tiaas_admin_user }}').count() or User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}')"
+        "from django.contrib.auth.models import User; User.objects.create_superuser('{{ tiaas_admin_user }}', 'admin@localhost', '{{ tiaas_admin_pass }}') if User.objects.filter(username='{{ tiaas_admin_user }}').count() == 0 else None"
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
