@@ -2,7 +2,7 @@ GALAXY_SECRET = "{{ tiaas_galaxy_idsecret }}"
 TIAAS_OWNER = '{{ tiaas_info.owner }}'
 TIAAS_EMAIL = '{{ tiaas_info.owner_email }}'
 TIAAS_OWNER_SITE = '{{ tiaas_info.owner_site }}'
-TIAAS_DOMAIN = '{{ tiaas_info.domain }}'
+TIAAS_DOMAIN = '{{ tiaas_info.url }}'
 
 TIAAS_SEND_EMAIL_TO = '{{ tiaas_info.owner_email }}'
 TIAAS_SEND_EMAIL_FROM = "tiaas+noreply@example.org"

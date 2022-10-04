@@ -48,7 +48,8 @@ tiaas_other_config: ""
 tiaas_info:
   owner: default
   owner_email: admin@localhost
-  owner_site: "{{ inventory_hostname }}"
+  owner_site: "http://{{ inventory_hostname }}"
+  url: "http://{{ inventory_hostname }}"
   domain: "{{ inventory_hostname }}"
 
 tiaas_create_group: true
