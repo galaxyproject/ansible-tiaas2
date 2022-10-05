@@ -46,11 +46,10 @@ tiaas_late_request_prevention_days: 10
 
 tiaas_other_config: ""
 tiaas_info:
-  owner: default
+  owner: default                                 # e.g. "Galaxy Antarctica"
   owner_email: admin@localhost
-  owner_site: "http://{{ inventory_hostname }}"
-  url: "http://{{ inventory_hostname }}"
-  domain: "{{ inventory_hostname }}"
+  owner_site: "http://{{ inventory_hostname }}"  # Your galaxy website
+  domain: "{{ inventory_hostname }}"             # Your galaxy domain name
 
 tiaas_create_group: true
 tiaas_create_user: true
