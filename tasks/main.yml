@@ -117,6 +117,7 @@
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
   run_once: "{{ not tiaas_tiaas_use_sqlite }}"
+  ignore_errors: true
 
 - name: Ensure static directory is available
   file:
@@ -134,6 +135,46 @@
     app_path: "{{ tiaas_code_dir }}/"
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
+
+- name: Copy custom HTML templates
+  become: true
+  become_user: "{{ tiaas_user }}"
+  copy:
+    src: "{{ tiaas_templates_dir }}/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+  loop: "{{ tiaas_html_templates }}"
+  when: tiaas_templates_dir is defined
+  notify: 'reload tiaas'
+
+- name: Copy custom static files
+  become: true
+  become_user: "{{ tiaas_user }}"
+  copy:
+    src: "{{ tiaas_extra_static_dir }}/"
+    dest: "{{ tiaas_static_dir }}"
+    mode: 0644
+  when: tiaas_extra_static_dir is defined
+
+- name: Copy default HTML templates
+  become: true
+  become_user: "{{ tiaas_user }}"
+  copy:
+    src: "html/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+  loop: "{{ tiaas_html_templates }}"
+  when: tiaas_templates_dir is not defined
+  notify: 'reload tiaas'
+
+- name: Copy default static files
+  become: true
+  become_user: "{{ tiaas_user }}"
+  copy:
+    src: static/
+    dest: "{{ tiaas_static_dir }}"
+    mode: 0644
+  when: tiaas_extra_static_dir is not defined
 
 - name: Schedule cron job to disassociate training groups from roles after training expires
   cron:
