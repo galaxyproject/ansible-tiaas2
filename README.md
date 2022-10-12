@@ -13,6 +13,63 @@ Dependencies
 
 Using the Galaxy playbook
 
+---
+
+## Migrating to the new TIaaS
+
+**(October 2022)**
+
+The new TIaaS allows you to customise the site's text content with simple HTML templates. To see what can be customized, check out `galaxyproject.tiaas2/files/html`. The updated Ansible role allows you to override these templates with your own custom content (optional, see steps 2-3).
+
+1. Grab the **updated** Ansible role from `galaxyproject.tiaas2`
+2. [Optional] Set the Ansible var `tiaas_templates_dir` to point to a `files` directory containing your TIaaS templates. This directory **must** have the correct structure. Copy the directory from`galaxyproject.tiaas2/files/html` to your `files` directory. Don't use `templates` - we tried that but Jinja chews up the Django template tags. You can then edit these HTML templates to customize your deployment:
+
+  ```yaml
+  # vars.yml
+  tiaas_templates_dir: tiaas/html
+  ```
+
+  ```
+  <playbook>/files/tiaas/html/
+  ├── about
+  │   ├── 1_intro.html
+  │   ├── 2_why_tiaas_funding.txt
+  │   ├── 3_eligibility.html
+  │   └── 4_how_does_it_work.html
+  ├── calendar
+  │   └── intro.html
+  ├── footer.html
+  └── register
+      ├── 1_intro.html
+      ├── 2_about_the_course.html
+      ├── 3_resource_usage.html
+      ├── 4_advertising.html
+      ├── 5_conclusion.html
+      └── 6_thanks.html
+  ```
+
+3. [Optional] If the above templates reference any static files you can add
+these files by setting the Ansible var `tiaas_extra_static_dir`. This should
+point to a directory containing your static files. For example, the image in the
+default `footer.html` references a static file located at
+  `{{ tiaas_extra_static_dir }}/footer/galaxyproject.png`:
+
+  ```html
+  <!-- footer.html -->
+  <img src="{% static 'footer/galaxyproject.png' %}" />
+  ```
+
+4. [optional] There are two more new variables that can be set:
+  - `tiaas_show_advertising`: show/hide advertising statement (default `false`)
+  - `tiaas_retain_contact_require_consent`: ask for consent to retain contact (default `false`)
+    information for additional time
+
+5. One variable has been renamed for clarity:
+  - `retain_extra_time` -> `tiaas_retain_contact_extra_months`
+
+---
+
+
 Example Playbook
 ----------------
 

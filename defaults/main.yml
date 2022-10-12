@@ -1,9 +1,12 @@
 # TIaaS Configuration
 tiaas_galaxy_db_url: postgres
 tiaas_galaxy_idsecret: '{{ galaxy_config.galaxy.id_secret | default("USING THE DEFAULT IS NOT SECURE!") }}'
+tiaas_show_advertising: true
 
-# TIaaS GDPR
-retain_extra_time: 12
+# Ask for consent to retain contact info for extra time
+tiaas_retain_contact_require_consent: true
+# Additional months to retain contact info
+tiaas_retain_contact_extra_months: "{{ retain_extra_time | default(12) }}"
 
 # TIaaS Deployment
 tiaas_dir: /opt/tiaas
@@ -13,8 +16,8 @@ tiaas_static_dir: "{{ tiaas_dir }}/static"
 tiaas_venv_dir: "{{ tiaas_dir }}/venv"
 tiaas_user: tiaas
 tiaas_group: tiaas
-tiaas_repo: "https://github.com/usegalaxy-eu/tiaas2"
-tiaas_version: main
+tiaas_repo: "https://github.com/galaxyproject/tiaas2"
+tiaas_version: main2
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 
 # Create a cron job to disassociate training roles from groups after trainings have expired, set to `false` to disable
@@ -37,12 +40,16 @@ tiaas_tiaas_db_pass: ""
 tiaas_tiaas_db_host: "/var/run/postgresql/"
 tiaas_tiaas_db_port: ""
 
+tiaas_show_username: false
+tiaas_send_email_to_requester: false
+tiaas_late_request_prevention_days: 10
+
 tiaas_other_config: ""
 tiaas_info:
-  owner: default
+  owner: default                                 # e.g. "Galaxy Antarctica"
   owner_email: admin@localhost
-  owner_site: "{{ inventory_hostname }}"
-  domain: "{{ inventory_hostname }}"
+  owner_site: "http://{{ inventory_hostname }}"  # Your galaxy website
+  domain: "{{ inventory_hostname }}"             # Your galaxy domain name
 
 tiaas_create_group: true
 tiaas_create_user: true
@@ -52,7 +59,42 @@ tiaas_secret_key: "Using the default is bad news bears"
 tiaas_admin_user: admin
 tiaas_admin_pass: admin
 
-tiaas_show_advertising: true
-
 tiaas_statsd_host: null
 tiaas_statsd_prefix: tiaas
+
+# Add these lines to playbook vars to override default tiaas files with
+# playbook files:
+
+# Copy TIAAS HTML template snippets across:
+# N.B. Don't use these as ansible templates, Django template tags will be
+#   interpreted as Jinja tags and cause errors!
+# tiaas_templates_dir: files/tiaas/html
+
+# Put static files required by above templates in here:
+# tiaas_extra_static_dir: files/tiaas/static
+
+tiaas_html_templates:
+  - src: "footer.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/footer.html"
+  - src: "about/1_intro.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/about/1_intro.html"
+  - src: "about/2_why_tiaas_funding.txt"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/about/2_why_tiaas_funding.txt"
+  - src: "about/3_eligibility.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/about/3_eligibility.html"
+  - src: "about/4_how_does_it_work.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/about/4_how_does_it_work.html"
+  - src: "calendar/intro.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/calendar/intro.html"
+  - src: "register/1_intro.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/1_intro.html"
+  - src: "register/2_about_the_course.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/2_about_the_course.html"
+  - src: "register/3_resource_usage.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/3_resource_usage.html"
+  - src: "register/4_advertising.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/4_advertising.html"
+  - src: "register/5_conclusion.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/5_conclusion.html"
+  - src: "register/6_thanks.html"
+    dest: "{{ tiaas_code_dir }}/templates/snippets/register/6_thanks.html"
