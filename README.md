@@ -121,9 +121,7 @@ Your NGINX configuration needs to include something like, none of this is config
 
 ```
     location /tiaas {
-        uwsgi_pass 127.0.0.1:5000;
-        uwsgi_param UWSGI_SCHEME $scheme;
-        include uwsgi_params;
+        proxy_pass 127.0.0.1:5000;
     }
 
     location /tiaas/static {
@@ -131,9 +129,7 @@ Your NGINX configuration needs to include something like, none of this is config
     }
 
     location /join-training {
-        uwsgi_pass 127.0.0.1:5000;
-        uwsgi_param UWSGI_SCHEME $scheme;
-        include uwsgi_params;
+        proxy_pass 127.0.0.1:5000;
     }
 
 ```

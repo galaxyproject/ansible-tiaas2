@@ -59,6 +59,9 @@ tiaas_secret_key: "Using the default is bad news bears"
 tiaas_admin_user: admin
 tiaas_admin_pass: admin
 
+tiaas_statsd_host: null
+tiaas_statsd_prefix: tiaas
+
 # Add these lines to playbook vars to override default tiaas files with
 # playbook files:
 
