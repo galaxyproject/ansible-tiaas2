@@ -40,6 +40,15 @@
     mode: 0750
   notify: 'reload tiaas'
 
+- name: Send gunicorn conf
+  template:
+    src: "gunicorn.py"
+    dest: "{{ tiaas_dir }}/gunicorn.py"
+    owner: "{{ tiaas_user }}"
+    group: "{{ tiaas_group }}"
+    mode: 0640
+  notify: 'reload tiaas'
+
 - name: Install base dependencies
   become: true
   become_user: "{{ tiaas_user }}"
@@ -92,6 +101,13 @@
     dest: /etc/systemd/system/tiaas.service
     mode: 0644
   notify: setup tiaas systemd
+
+- name: Install socket
+  template:
+    src: tiaas.socket
+    dest: /etc/systemd/system/tiaas.socket
+    mode: 0644
+  notify: enable tiaas socket
 
 # Run syncdb on the application
 - name: Update database

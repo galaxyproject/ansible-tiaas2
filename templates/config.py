@@ -43,7 +43,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['localhost', '{{ tiaas_info.domain }}']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '{{ tiaas_info.domain }}']
 SECRET_KEY = '{{ tiaas_secret_key }}'
 STATIC_ROOT = '{{ tiaas_static_dir }}'
 

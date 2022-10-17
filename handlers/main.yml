@@ -10,3 +10,6 @@
     enabled: true
     name: tiaas
     daemon_reload: true
+
+- name: enable tiaas socket
+  command: systemctl enable tiaas.socket

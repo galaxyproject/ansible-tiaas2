@@ -1,12 +1,21 @@
 [Unit]
 Description=Training Infrastructure as a Service
-Documentation=https://github.com/usegalaxy-eu/tiaas2
+Documentation=https://github.com/galaxyproject/tiaas2
+Requires=tiaas.socket
 After=network.target
 
 [Service]
+Type=notify
 User={{ tiaas_user }}
 Group={{ tiaas_group }}
-ExecStart={{ tiaas_dir }}/run.sh
+RuntimeDirectory=gunicorn
+WorkingDirectory={{ tiaas_code_dir }}
+Environment="PATH={{ tiaas_venv_dir }}/bin:$PATH"
+ExecStart={{ tiaas_venv_dir }}/bin/gunicorn --bind unix:/run/tiaas.sock \
+  {% if tiaas_statsd_host %}--statsd-host {{ tiaas_statsd_host }} --statsd-prefix {{ tiaas_statsd_prefix }}{% endif %} \
+  --pythonpath '{{ tiaas_dir }}' \
+  -c ../gunicorn.py \
+  tiaas.wsgi
 Restart=on-failure
 RestartForceExitStatus=SIGPIPE
 KillMode=control-group
