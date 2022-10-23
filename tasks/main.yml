@@ -31,15 +31,6 @@
   register: __tiaas_git_update_result
   notify: 'reload tiaas'
 
-- name: Send runner script
-  template:
-    src: "run.sh"
-    dest: "{{ tiaas_dir }}/run.sh"
-    owner: "{{ tiaas_user }}"
-    group: "{{ tiaas_group }}"
-    mode: 0750
-  notify: 'reload tiaas'
-
 - name: Send gunicorn conf
   template:
     src: "gunicorn.py"
@@ -136,7 +127,7 @@
   register: result
   failed_when:
     - result.rc > 0
-    - 'UNIQUE constraint failed' not in result.stderr
+    - "'UNIQUE constraint failed' not in result.stderr"
 
 - name: Ensure static directory is available
   file:
