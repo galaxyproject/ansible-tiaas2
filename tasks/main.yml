@@ -124,10 +124,9 @@
     pythonpath: "{{ tiaas_dir }}"
     virtualenv: "{{ tiaas_venv_dir }}"
   run_once: "{{ not tiaas_tiaas_use_sqlite }}"
-  register: result
-  failed_when:
-    - result.rc > 0
-    - "'UNIQUE constraint failed' not in result.stderr"
+  ignore_errors: true
+
+- debug: msg="{{create_superuser_result}}"
 
 - name: Ensure static directory is available
   file:
