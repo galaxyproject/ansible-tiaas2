@@ -4,7 +4,7 @@ Most requests are handled quickly, so 1 worker should be able to handle many
 requests per second.
 """
 
-workers = 1
+workers = {{ tiaas_worker_threads }}
 
 # Environment variables
 raw_env = [
