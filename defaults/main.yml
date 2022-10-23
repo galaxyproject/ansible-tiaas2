@@ -111,6 +111,10 @@ tiaas_nginx_routes: |
       proxy_read_timeout    600;  # seconds
   }
 
+  location /tiaas/static {
+      alias /opt/tiaas/static;
+  }
+
   location /join-training {
       proxy_pass            http://unix:/run/tiaas.sock;
       proxy_redirect        off;
