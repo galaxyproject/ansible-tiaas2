@@ -12,4 +12,6 @@
     daemon_reload: true
 
 - name: enable tiaas socket
-  command: systemctl enable tiaas.socket
+  ansible.builtin.systemd:
+    name: tiaas.socket
+    enabled: yes
