@@ -10,3 +10,8 @@
     enabled: true
     name: tiaas
     daemon_reload: true
+
+- name: enable tiaas socket
+  ansible.builtin.systemd:
+    name: tiaas.socket
+    enabled: yes

@@ -31,13 +31,13 @@
   register: __tiaas_git_update_result
   notify: 'reload tiaas'
 
-- name: Send runner script
+- name: Send gunicorn conf
   template:
-    src: "run.sh"
-    dest: "{{ tiaas_dir }}/run.sh"
+    src: "gunicorn.py"
+    dest: "{{ tiaas_dir }}/gunicorn.py"
     owner: "{{ tiaas_user }}"
     group: "{{ tiaas_group }}"
-    mode: 0750
+    mode: 0640
   notify: 'reload tiaas'
 
 - name: Install base dependencies
@@ -92,6 +92,13 @@
     dest: /etc/systemd/system/tiaas.service
     mode: 0644
   notify: setup tiaas systemd
+
+- name: Install socket
+  template:
+    src: tiaas.socket
+    dest: /etc/systemd/system/tiaas.socket
+    mode: 0644
+  notify: enable tiaas socket
 
 # Run syncdb on the application
 - name: Update database
