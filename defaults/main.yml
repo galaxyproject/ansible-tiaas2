@@ -118,7 +118,7 @@ tiaas_nginx_routes: |
       alias /opt/tiaas/static;
   }
 
-  location /join-training {
+  location {{ tiaas_galaxy_prefix }}/join-training {
       proxy_pass            http://unix:/run/tiaas.sock;
       proxy_redirect        off;
       proxy_set_header      Host                 $host;
