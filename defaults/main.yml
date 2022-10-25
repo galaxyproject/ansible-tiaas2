@@ -21,6 +21,9 @@ tiaas_version: main2
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 tiaas_worker_threads: 1
 
+# If you run galaxy under a prefix, e.g. /galaxy, please set that prefix value here **without** a trailing slash
+tiaas_galaxy_prefix: "" 
+
 # Create a cron job to disassociate training roles from groups after trainings have expired, set to `false` to disable
 tiaas_disassociate_training_roles:
   hour: 0      # optional, defaults to 0
