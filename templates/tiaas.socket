@@ -1,6 +1,6 @@
 [Unit]
 Description=Galaxy tiaas service socket
 [Socket]
-ListenStream=/run/tiaas.sock
+ListenStream={{ tiaas_socket }}
 [Install]
 WantedBy=sockets.target

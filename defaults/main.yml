@@ -14,6 +14,7 @@ tiaas_code_dir: "{{ tiaas_dir }}/code"
 tiaas_config_dir: "{{ tiaas_dir }}/config"
 tiaas_static_dir: "{{ tiaas_dir }}/static"
 tiaas_venv_dir: "{{ tiaas_dir }}/venv"
+tiaas_socket: /run/tiaas.sock
 tiaas_user: tiaas
 tiaas_group: tiaas
 tiaas_repo: "https://github.com/galaxyproject/tiaas2"
@@ -105,7 +106,7 @@ tiaas_html_templates:
 
 tiaas_nginx_routes: |
   location /tiaas {
-      proxy_pass            http://unix:/run/tiaas.sock;
+      proxy_pass            http://unix:{{ tiaas_socket }};
       proxy_redirect        off;
       proxy_set_header      Host                 $host;
       proxy_set_header      X-Real-IP            $remote_addr;
@@ -119,7 +120,7 @@ tiaas_nginx_routes: |
   }
 
   location {{ tiaas_galaxy_prefix }}/join-training {
-      proxy_pass            http://unix:/run/tiaas.sock;
+      proxy_pass            http://unix:{{ tiaas_socket }};
       proxy_redirect        off;
       proxy_set_header      Host                 $host;
       proxy_set_header      X-Real-IP            $remote_addr;

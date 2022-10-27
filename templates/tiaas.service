@@ -11,7 +11,7 @@ Group={{ tiaas_group }}
 RuntimeDirectory=gunicorn
 WorkingDirectory={{ tiaas_code_dir }}
 Environment="PATH={{ tiaas_venv_dir }}/bin:$PATH"
-ExecStart={{ tiaas_venv_dir }}/bin/gunicorn --bind unix:/run/tiaas.sock \
+ExecStart={{ tiaas_venv_dir }}/bin/gunicorn --bind unix:{{ tiaas_socket }} \
   {% if tiaas_statsd_host %}--statsd-host {{ tiaas_statsd_host }} --statsd-prefix {{ tiaas_statsd_prefix }}{% endif %} \
   --pythonpath '{{ tiaas_dir }}' \
   -c ../gunicorn.py \
