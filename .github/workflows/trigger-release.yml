@@ -5,7 +5,7 @@
 # See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
 # See: https://github.com/ansible/galaxy/issues/46
 
-name: "Bump 'n Releas"
+name: "Bump 'n Release"
 
 on:
   workflow_dispatch:
@@ -17,6 +17,7 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
+        fetch-depth: 0
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
