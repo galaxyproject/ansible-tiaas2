@@ -116,7 +116,7 @@ tiaas_nginx_routes: |
   }
 
   location /tiaas/static {
-      alias /opt/tiaas/static;
+      alias {{ tiaas_static_dir }};
   }
 
   location {{ tiaas_galaxy_prefix }}/join-training {
