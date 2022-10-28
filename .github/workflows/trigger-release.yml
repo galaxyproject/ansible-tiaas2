@@ -35,6 +35,9 @@ jobs:
           newpatch=$(echo "$patch + 1" | bc)
           NEW_TAG="${major_minor}${newpatch}"
           echo "$MOST_RECENT_TAG -> $NEW_TAG"
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git tag "$NEW_TAG"
           git push --tags
 
