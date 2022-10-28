@@ -66,6 +66,14 @@ default `footer.html` references a static file located at
 
 5. One variable has been renamed for clarity:
   - `retain_extra_time` -> `tiaas_retain_contact_extra_months`
+  
+6. You should remove these variables from your playbook:
+  - `tiaas_version`
+  - `tiaas_repo`
+  - `tiaas_listen_url`
+
+7. In the nginx conf template, replace your tiaas routes with this variable:
+  - `{{ tiaas_nginx_routes }}`
 
 ---
 
