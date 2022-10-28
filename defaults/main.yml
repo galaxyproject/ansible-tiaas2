@@ -18,7 +18,7 @@ tiaas_socket: /run/tiaas.sock
 tiaas_user: tiaas
 tiaas_group: tiaas
 tiaas_repo: "https://github.com/galaxyproject/tiaas2"
-tiaas_version: main2
+tiaas_version: main
 tiaas_galaxy_stylesheet: "{{ galaxy_server_dir }}/static/style/base.css"
 tiaas_worker_threads: 1
 
