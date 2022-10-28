@@ -125,22 +125,13 @@ Example Playbook
     - usegalaxy-eu.tiaas
 ```
 
-Your NGINX configuration needs to include something like, none of this is configurable, the role is extremely opinionated 🙃
+Your NGINX configuration needs to include something like this, as we provide default configured routes:
 
 ```
-    location /tiaas {
-        proxy_pass 127.0.0.1:5000;
-    }
-
-    location /tiaas/static {
-        alias {{ tiaas_dir }}/static;
-    }
-
-    location /join-training {
-        proxy_pass 127.0.0.1:5000;
-    }
-
+    {{ tiaas_nginx_routes }}
 ```
+
+If you want to reconfigure that, please examine the role, and consider contributing your route template (e.g. for Traefik or Apache2) into the TIaaS role so we can keep them updated.
 
 License
 -------
