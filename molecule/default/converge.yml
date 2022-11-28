@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  become_method: su
+  roles:
+    # create some stuff, must pass idempotence
+    - role: galaxyproject.tiaas2
