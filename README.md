@@ -66,7 +66,7 @@ default `footer.html` references a static file located at
 
 5. One variable has been renamed for clarity:
   - `retain_extra_time` -> `tiaas_retain_contact_extra_months`
-  
+
 6. You should remove these variables from your playbook:
   - `tiaas_version`
   - `tiaas_repo`
@@ -75,8 +75,20 @@ default `footer.html` references a static file located at
 7. In the nginx conf template, replace your tiaas routes with this variable:
   - `{{ tiaas_nginx_routes }}`
 
----
+## Using TCP sockets
 
+By default, this role assumes the TIaaS app and the Nginx proxy are running on the same machine, communicating using a Unix socket.
+
+If you prefer to use a TCP socket with the two processes on different machines, you can use a configuration like that;
+
+  ```yaml
+    tiaas_socket: 0.0.0.0:5000
+    tiaas_socket_bind: "{{ tiaas_socket }}"
+    tiaas_socket_listen: "192.168.0.256:5000"  # ip of the machine running tiaas
+    tiaas_extra_args: '--forwarded-allow-ips="192.168.0.257"'  # ip of the nginx proxy machine
+  ```
+
+---
 
 Example Playbook
 ----------------

@@ -11,10 +11,11 @@ Group={{ tiaas_group }}
 RuntimeDirectory=gunicorn
 WorkingDirectory={{ tiaas_code_dir }}
 Environment="PATH={{ tiaas_venv_dir }}/bin:$PATH"
-ExecStart={{ tiaas_venv_dir }}/bin/gunicorn --bind unix:{{ tiaas_socket }} \
+ExecStart={{ tiaas_venv_dir }}/bin/gunicorn --bind {{ tiaas_socket_bind }} \
   {% if tiaas_statsd_host %}--statsd-host {{ tiaas_statsd_host }} --statsd-prefix {{ tiaas_statsd_prefix }}{% endif %} \
   --pythonpath '{{ tiaas_dir }}' \
   -c ../gunicorn.py \
+  {{ tiaas_extra_args }} \
   tiaas.wsgi
 Restart=on-failure
 RestartForceExitStatus=SIGPIPE
