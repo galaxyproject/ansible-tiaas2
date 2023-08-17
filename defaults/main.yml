@@ -59,6 +59,9 @@ tiaas_info:
   owner_site: "http://{{ inventory_hostname }}"  # Your galaxy website
   domain: "{{ inventory_hostname }}"             # Your galaxy domain name
 
+tiaas_send_email_to: "{{ tiaas_info.owner_email }}"
+tiaas_send_email_from: "tiaas+noreply@{{ tiaas_info.domain }}"
+
 tiaas_create_group: true
 tiaas_create_user: true
 tiaas_force_checkout: true
