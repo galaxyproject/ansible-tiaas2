@@ -4,8 +4,8 @@ TIAAS_EMAIL = '{{ tiaas_info.owner_email }}'
 TIAAS_OWNER_SITE = '{{ tiaas_info.owner_site }}'
 GALAXY_DOMAIN = '{{ tiaas_info.domain }}'
 
-TIAAS_SEND_EMAIL_TO = '{{ tiaas_info.owner_email }}'
-TIAAS_SEND_EMAIL_FROM = "tiaas+noreply@example.org"
+TIAAS_SEND_EMAIL_TO = '{{ tiaas_send_email_to }}'
+TIAAS_SEND_EMAIL_FROM = '{{ tiaas_send_email_from }}'
 
 TIAAS_SHOW_ADVERTISING = {{ tiaas_show_advertising | ternary('True', 'False') }}
 TIAAS_GDPR_RETAIN_EXTRA_MONTHS = {{ tiaas_retain_contact_extra_months }}
