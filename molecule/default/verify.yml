@@ -1,0 +1,16 @@
+---
+- name: Verify
+  hosts: all
+  become: true
+  become_method: su
+  tasks:
+    - block:
+
+        - name: Check files exist
+          stat:
+            path: "{{ item.name }}"
+          loop:
+            - name: /srv/tiaas2
+            - name: /srv/tiaas2/code/
+          register: result
+      check_mode: true
