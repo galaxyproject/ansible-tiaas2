@@ -1,10 +1,10 @@
 ---
 galaxy_info:
   author: Helena Rasche
-  description: Install and manage a TIaaS instance (https://github.com/usegalaxy-eu/ansible-tiaas2)
-  company: Galaxy Europe
+  description: Install and manage a TIaaS instance (https://github.com/galaxyproject/ansible-tiaas2)
+  company: The Galaxy Project
   license: GPLv3
-  namespace: usegalaxy_eu
+  namespace: galaxyproject
   role_name: tiaas2
   min_ansible_version: 2.7
   platforms:
